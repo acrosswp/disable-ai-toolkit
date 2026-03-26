@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Disable AI Toolkit
  * Description: Adds an option to the General Settings page to disable AI features in WordPress.
- * Version:     0.0.2
+ * Version:     0.0.3
  * Author:      WordPress
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -72,4 +72,69 @@ function disable_ai_toolkit_field_cb() {
 		<?php esc_html_e( 'Disable AI features on this site', 'disable-ai-toolkit' ); ?>
 	</label>
 	<?php
+}
+
+/**
+ * Registers the WP-CLI commands for managing AI features.
+ *
+ * Commands:
+ *   wp ai disable   — Disables AI features site-wide.
+ *   wp ai enable    — Re-enables AI features site-wide.
+ *   wp ai status    — Shows the current AI enabled/disabled state.
+ */
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+
+	/**
+	 * Manages AI features via WP-CLI.
+	 */
+	class Disable_AI_Toolkit_CLI extends WP_CLI_Command {
+
+		/**
+		 * Disables AI features site-wide.
+		 *
+		 * ## EXAMPLES
+		 *
+		 *   wp ai disable
+		 *
+		 * @subcommand disable
+		 */
+		public function disable() {
+			update_option( 'disable_ai_toolkit', '1' );
+			WP_CLI::success( 'AI features have been disabled.' );
+		}
+
+		/**
+		 * Enables AI features site-wide.
+		 *
+		 * ## EXAMPLES
+		 *
+		 *   wp ai enable
+		 *
+		 * @subcommand enable
+		 */
+		public function enable() {
+			update_option( 'disable_ai_toolkit', '0' );
+			WP_CLI::success( 'AI features have been enabled.' );
+		}
+
+		/**
+		 * Shows the current AI enabled/disabled status.
+		 *
+		 * ## EXAMPLES
+		 *
+		 *   wp ai status
+		 *
+		 * @subcommand status
+		 */
+		public function status() {
+			$disabled = get_option( 'disable_ai_toolkit', '0' ) === '1';
+			if ( $disabled ) {
+				WP_CLI::log( 'AI features are currently: disabled' );
+			} else {
+				WP_CLI::log( 'AI features are currently: enabled' );
+			}
+		}
+	}
+
+	WP_CLI::add_command( 'ai', 'Disable_AI_Toolkit_CLI' );
 }
