@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Disable AI Toolkit
  * Description: Adds an option to the General Settings page to disable AI features in WordPress.
- * Version:     0.0.3
+ * Version:     0.0.4
  * Author:      WordPress
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,22 @@ function disable_ai_toolkit_field_cb() {
 	</label>
 	<?php
 }
+
+/**
+ * Adds a "Settings" link on the Plugins page pointing to Settings > General.
+ */
+add_filter(
+	'plugin_action_links_disable-ai-toolkit/disable-ai-toolkit.php',
+	static function ( $links ) {
+		$settings_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( admin_url( 'options-general.php#disable_ai_toolkit' ) ),
+			esc_html__( 'Settings', 'disable-ai-toolkit' )
+		);
+		array_unshift( $links, $settings_link );
+		return $links;
+	}
+);
 
 /**
  * Registers the WP-CLI commands for managing AI features.
