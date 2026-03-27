@@ -1,14 +1,5 @@
 # Disable AI Toolkit
 
-**Contributors:** raftaar1191  
-**Tags:** ai, disable, wp-supports-ai  
-**Requires at least:** WordPress 7.0  
-**Tested up to:** WordPress 7.0  
-**Requires PHP:** 7.4  
-**Stable tag:** 0.0.4  
-**License:** GPL-2.0-or-later  
-**License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
-
 Adds an option to the General Settings page to disable AI features in WordPress.
 
 ---
@@ -61,19 +52,3 @@ No. This plugin hooks into the `wp_supports_ai` filter at priority 1000, which r
 ### What happens if I deactivate the plugin?
 
 Deactivating the plugin removes the filter entirely, so AI features will return to whatever state they were in before — regardless of the saved option.
-
----
-
-## Changelog
-
-### 0.0.4
-- Added Settings link on the Plugins page for quick access to Settings > General.
-
-### 0.0.3
-- Added WP-CLI commands: `wp ai disable`, `wp ai enable`, `wp ai status`.
-
-### 0.0.2
-- Added AI Features toggle to Settings > General page.
-
-### 0.0.1
-- Initial release.
