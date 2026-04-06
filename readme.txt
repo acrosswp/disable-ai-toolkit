@@ -44,9 +44,9 @@ page and save. You do not need to deactivate or delete the plugin.
 
 Yes. The plugin registers three WP-CLI commands:
 
-  wp ai disable   — Turns off AI features site-wide.
-  wp ai enable    — Turns on AI features site-wide.
-  wp ai status    — Shows the current AI on/off state.
+  wp toaif disable   — Turns off AI features site-wide.
+  wp toaif enable    — Turns on AI features site-wide.
+  wp toaif status    — Shows the current AI on/off state.
 
 = Does this affect the WP_AI_SUPPORT constant? =
 
@@ -57,8 +57,6 @@ of the constant.
 == Changelog ==
 
 = 0.0.4 =
-* Renamed from "Disable AI Toolkit" to "Turn Off AI Features"
-* Updated text domain to turn-off-ai-features
 * Updated option key to turn_off_ai_features
 * Updated all messaging to use "turn off" terminology
 * Updated WP-CLI command descriptions

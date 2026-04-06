@@ -11,7 +11,7 @@ Turn Off AI Features lets you control AI functionality in WordPress without touc
 **Features:**
 
 - Toggle AI on or off from **Settings > General** — no deactivation needed.
-- WP-CLI support: `wp ai disable` / `wp ai enable` / `wp ai status`.
+- WP-CLI support: `wp toaif disable` / `wp toaif enable` / `wp toaif status`.
 - Settings link on the Plugins page for quick access.
 - Runs at priority 1000, overriding other plugins that may enable AI.
 
@@ -37,11 +37,11 @@ Turn Off AI Features lets you control AI functionality in WordPress without touc
 
 ```bash
 # Turn off AI features
-wp ai disable
+wp toaif disable
 
 # Turn on AI features
-wp ai enable
+wp toaif enable
 
 # Check status
-wp ai status
+wp toaif status
 ```

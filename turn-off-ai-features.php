@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter(
 	'wp_supports_ai',
 	static function ( $supported ) {
-		if ( get_option( 'turn_off_ai_features', '0' ) === '1' ) {
+		if ( get_option( 'toaif_disable_ai', '0' ) === '1' ) {
 			return false;
 		}
 		return $supported;
@@ -40,7 +40,7 @@ add_action(
 	static function () {
 		register_setting(
 			'general',
-			'turn_off_ai_features',
+			'toaif_disable_ai',
 			array(
 				'type'              => 'string',
 				'sanitize_callback' => static function ( $value ) {
@@ -51,9 +51,9 @@ add_action(
 		);
 
 		add_settings_field(
-			'turn_off_ai_features',
+			'toaif_disable_ai',
 			__( 'AI Features', 'turn-off-ai-features' ),
-			'turn_off_ai_features_field_cb',
+			'toaif_disable_field_cb',
 			'general'
 		);
 	}
@@ -62,14 +62,14 @@ add_action(
 /**
  * Renders the AI Features checkbox field.
  */
-function turn_off_ai_features_field_cb() {
-	$value = get_option( 'turn_off_ai_features', '0' );
+function toaif_disable_field_cb() {
+	$value = get_option( 'toaif_disable_ai', '0' );
 	?>
-	<label for="turn_off_ai_features">
+	<label for="toaif_disable_ai">
 		<input
 			type="checkbox"
-			name="turn_off_ai_features"
-			id="turn_off_ai_features"
+			name="toaif_disable_ai"
+			id="toaif_disable_ai"
 			value="1"
 			<?php checked( '1', $value ); ?>
 		/>
@@ -82,11 +82,11 @@ function turn_off_ai_features_field_cb() {
  * Adds a "Settings" link on the Plugins page pointing to Settings > General.
  */
 add_filter(
-	'plugin_action_links_turn-off-ai-features/turn-off-ai-features.php',
+	'plugin_action_links_' . plugin_basename( __FILE__ ),
 	static function ( $links ) {
 		$settings_link = sprintf(
 			'<a href="%s">%s</a>',
-			esc_url( admin_url( 'options-general.php#turn_off_ai_features' ) ),
+			esc_url( admin_url( 'options-general.php#toaif_disable_ai' ) ),
 			esc_html__( 'Settings', 'turn-off-ai-features' )
 		);
 		array_unshift( $links, $settings_link );
@@ -98,28 +98,28 @@ add_filter(
  * Registers the WP-CLI commands for managing AI features.
  *
  * Commands:
- *   wp ai disable   — Turns off AI features site-wide.
- *   wp ai enable    — Turns on AI features site-wide.
- *   wp ai status    — Shows the current AI on/off state.
+ *   wp toaif disable   — Turns off AI features site-wide.
+ *   wp toaif enable    — Turns on AI features site-wide.
+ *   wp toaif status    — Shows the current AI on/off state.
  */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	/**
 	 * Manages AI features via WP-CLI.
 	 */
-	class Turn_Off_AI_Features_CLI extends WP_CLI_Command {
+	class TOAIF_Disable_CLI extends WP_CLI_Command {
 
 		/**
 		 * Turns off AI features site-wide.
 		 *
 		 * ## EXAMPLES
 		 *
-		 *   wp ai disable
+		 *   wp toaif disable
 		 *
 		 * @subcommand disable
 		 */
 		public function disable() {
-			update_option( 'turn_off_ai_features', '1' );
+			update_option( 'toaif_disable_ai', '1' );
 			WP_CLI::success( 'AI features have been turned off.' );
 		}
 
@@ -128,12 +128,12 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 *
 		 * ## EXAMPLES
 		 *
-		 *   wp ai enable
+		 *   wp toaif enable
 		 *
 		 * @subcommand enable
 		 */
 		public function enable() {
-			update_option( 'turn_off_ai_features', '0' );
+			update_option( 'toaif_disable_ai', '0' );
 			WP_CLI::success( 'AI features have been turned on.' );
 		}
 
@@ -142,12 +142,12 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 *
 		 * ## EXAMPLES
 		 *
-		 *   wp ai status
+		 *   wp toaif status
 		 *
 		 * @subcommand status
 		 */
 		public function status() {
-			$off = get_option( 'turn_off_ai_features', '0' ) === '1';
+			$off = get_option( 'toaif_disable_ai', '0' ) === '1';
 			if ( $off ) {
 				WP_CLI::log( 'AI features are currently: off' );
 			} else {
@@ -156,5 +156,5 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		}
 	}
 
-	WP_CLI::add_command( 'ai', 'Turn_Off_AI_Features_CLI' );
+	WP_CLI::add_command( 'toaif', 'TOAIF_Disable_CLI' );
 }
