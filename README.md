@@ -1,12 +1,12 @@
-# Disable AI Toolkit
+# Turn Off AI Features
 
-Adds an option to the General Settings page to disable AI features in WordPress.
+Adds an option to the General Settings page to turn off AI features in WordPress.
 
 ---
 
 ## Description
 
-Disable AI Toolkit lets you turn off AI features in WordPress without touching code. It hooks into the `wp_supports_ai` filter at priority 1000 and returns `false` when the option is enabled.
+Turn Off AI Features lets you control AI functionality in WordPress without touching code. It hooks into the `wp_supports_ai` filter at priority 1000 and returns `false` when the option is enabled.
 
 **Features:**
 
@@ -19,36 +19,29 @@ Disable AI Toolkit lets you turn off AI features in WordPress without touching c
 
 ## Installation
 
-1. Upload the `disable-ai-toolkit` folder to `/wp-content/plugins/`.
+1. Upload the `turn-off-ai-features` folder to `/wp-content/plugins/`.
 2. Activate the plugin through the **Plugins** menu in WordPress.
-3. Go to **Settings > General** and check **"Disable AI features on this site"**.
+3. Go to **Settings > General** and check "Turn off AI features on this site".
 
 ---
 
-## Frequently Asked Questions
+## Usage
 
-### How do I disable AI features?
+### Admin Dashboard
 
-After activating the plugin, go to **Settings > General** and check the **"Disable AI features on this site"** checkbox, then click **Save Changes**. You can also use the **Settings** link on the Plugins page to get there directly.
+1. Go to **Settings > General**
+2. Check the option: "Turn off AI features on this site"
+3. Click Save Changes
 
-### How do I re-enable AI features?
-
-Uncheck the **"Disable AI features on this site"** checkbox on the **Settings > General** page and save. You do not need to deactivate or delete the plugin.
-
-### Can I toggle AI from the command line?
-
-Yes. The plugin registers three WP-CLI commands:
+### WP-CLI
 
 ```bash
-wp ai disable   # Disables AI features site-wide
-wp ai enable    # Re-enables AI features site-wide
-wp ai status    # Shows whether AI is currently enabled or disabled
+# Turn off AI features
+wp ai disable
+
+# Turn on AI features
+wp ai enable
+
+# Check status
+wp ai status
 ```
-
-### Does this affect the `WP_AI_SUPPORT` constant?
-
-No. This plugin hooks into the `wp_supports_ai` filter at priority 1000, which runs after the constant is evaluated, and forces the return value to `false` only when the option is turned on.
-
-### What happens if I deactivate the plugin?
-
-Deactivating the plugin removes the filter entirely, so AI features will return to whatever state they were in before — regardless of the saved option.
