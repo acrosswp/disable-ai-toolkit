@@ -4,7 +4,7 @@ Tags:              ai, turn-off, wp-supports-ai, disable-ai
 Requires at least: 7.0
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        0.0.4
+Stable tag:        0.0.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,10 +56,8 @@ of the constant.
 
 == Changelog ==
 
-= 0.0.4 =
+= 0.0.1 =
 * Updated option key to turn_off_ai_features
 * Updated all messaging to use "turn off" terminology
 * Updated WP-CLI command descriptions
-
-= 0.0.1 =
 * Initial release.
