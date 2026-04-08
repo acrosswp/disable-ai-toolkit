@@ -158,3 +158,36 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 	WP_CLI::add_command( 'toaif', 'TOAIF_Disable_CLI' );
 }
+
+/**
+ * Registers WP-CLI commands for managing AI features.
+ */
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	WP_CLI::add_command(
+		'toaif disable',
+		static function () {
+			update_option( 'toaif_disable_ai', '1' );
+			WP_CLI::success( 'AI features have been turned off.' );
+		}
+	);
+
+	WP_CLI::add_command(
+		'toaif enable',
+		static function () {
+			update_option( 'toaif_disable_ai', '0' );
+			WP_CLI::success( 'AI features have been turned on.' );
+		}
+	);
+
+	WP_CLI::add_command(
+		'toaif status',
+		static function () {
+			$off = get_option( 'toaif_disable_ai', '0' ) === '1';
+			if ( $off ) {
+				WP_CLI::log( 'AI features are currently: off' );
+			} else {
+				WP_CLI::log( 'AI features are currently: on' );
+			}
+		}
+	);
+}
